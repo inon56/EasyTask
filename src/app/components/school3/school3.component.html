@@ -1,0 +1,183 @@
+<!-- <div>
+    <h3>Template Reference Variables (#var)</h3>
+    <input #box type="text" placeholder="Type something" (input)="current = box.value" >
+    <button (click)="box.focus()">Focus</button>
+    <span style="margin-left:8px;color:#666">length={{ box.value?.length || 0 }}</span>
+</div>
+ <p>Current: {{ current || '(empty)' }}</p>
+
+<div>
+    <button (click)="toggle()">Toggle user</button>
+    <p>Email: {{ user?.profile?.email || '(none)' }}</p>
+</div> -->
+
+<!-- <h3>Structural directives micro-syntax</h3> 
+<button (click)="ok = !ok">Toggle</button>
+<div *ngIf="ok; else other">OK</div>
+<ng-template #other>Not OK</ng-template>
+<ul>
+    <li *ngFor="let item of items; index as i">{{ i }} - {{ item }}</li>
+</ul> -->
+
+<!-- <h3>Templates with ngTemplateOutlet</h3>
+ <label>
+      Type:
+      <select (change)="type = $any($event.target).value">
+        <option value="info">info</option>
+        <option value="warning">warning</option>
+        <option value="success">success</option>
+      </select>
+    </label>
+
+    <label>
+      Message: <input (input)="msg = $any($event.target).value" [value]="msg" />
+    </label>
+
+    <ng-container
+      [ngTemplateOutlet]="type === 'info' ? infoTpl : (type === 'warning' ? warnTpl : successTpl)"
+      [ngTemplateOutletContext]="{ $implicit: msg }">
+    </ng-container>
+
+    <ng-template #infoTpl let-text = "$implicit">
+      <p style="color:royalblue">Info: {{ text }}</p>
+    </ng-template>
+
+    <ng-template #warnTpl let-text>
+      <p style="color:darkorange">Warning: {{ text }}</p>
+    </ng-template>
+
+    <ng-template #successTpl let-text>
+      <p style="color:seagreen">Success: {{ text }}</p>
+    </ng-template> -->
+
+
+    <!-- $any(...) tells angular ignore type checking for the expression inside the parentheses. -->
+    <!-- <h3>Template statements and $event</h3>
+    <button (click)="count = count + 1">Increment</button>    
+    <input placeholder="Type" (input)="text = $any($event.target).value" [value]="text"/>
+    <button (click)="setText()">Set</button>
+    <p>Count: {{ count }}</p>
+    <p>Text: {{ text || '(empty)' }}</p>
+
+     <h3>*ngIf with as</h3>
+    <button (click)="toggle2()">Toggle user</button>
+    <p *ngIf="user2 as u; else empty">Hello {{ u.name }}!</p>
+    <ng-template #empty>No user</ng-template>
+ -->
+
+    <!-- <h3>Built-in pipes</h3>
+    <p>Today: {{ today | date:'yyyy-MM-dd' }}</p>
+    <p>Name: {{ name | uppercase }}</p>
+    <p>Chained: {{ ratio | percent:'1.0-2' | uppercase }}</p>
+
+    <h3>Attribute binding (attr.)</h3>
+    <button [attr.aria-label]="label" (click)="toggle3()">Toggle label</button>
+    <table border="1" style="margin-top:8px">
+      <tr><th>A</th><th>B</th><th>C</th></tr>
+      <tr>
+        <td [attr.colspan]="wide ? 2 : 1">Row 1</td>
+        <td>Cell</td>
+        <td>Cell</td>
+        </tr>
+    </table> -->
+
+
+    <!-- <h3>Two-way Binding (ngModel)</h3>
+
+    <label>
+      Name: <input [(ngModel)]="name3" placeholder="Type your name" />
+    </label>
+
+    <label style="margin-left:12px">
+      Favorite:
+      <select [(ngModel)]="favorite3">
+        <option value="Angular">Angular</option>
+        <option value="TypeScript">TypeScript</option>
+        <option value="JavaScript">JavaScript</option>
+      </select>
+    </label>
+
+    <p>Hello {{ name3 || 'friend' }}!</p>
+    <p>Favorite: {{ favorite3 }}</p> -->
+<!-- 
+    <h3>Directives</h3>
+    <p *ngIf="items.length > 0">We have {{ items.length }} items</p>
+    <ul>
+      <li *ngFor="let item of items2">{{ item }}</li>
+    </ul>
+    <button (click)="toggle4()">Toggle Items</button> -->
+
+
+    <!-- <h3>Events</h3>
+    <p>Count: {{ count2 }}</p>
+    <button (click)="increment()">Click me</button>
+
+    <div style="margin-top:12px">
+      <input placeholder="Type..." (input)="onInput($event)" (keyup)="lastKey2 = $any($event).key">
+      <p>Value: {{ value2 }}</p>
+      <p>Last key: {{ lastKey2 }}</p>
+    </div> -->
+
+    <h3>Event Filtering (keyup.enter)</h3>
+
+    <div class="toolbar">
+      <input type="text" placeholder="Add item and press Enter"
+             [value]="draft"
+             (input)="draft = $any($event.target).value"
+             (keyup)="lastKey4 = $any($event).key"
+             (keyup.enter)="add()">
+      <button (click)="add()">Add</button>
+      <button (click)="clear()" [disabled]="items4.length === 0">Clear</button>
+      <span style="margin-left:8px;color:#666">Last key: {{ lastKey4 }}</span>
+    </div>
+
+    <ul>
+      <li *ngFor="let it of items4; let i = index">{{ i + 1 }}. {{ it }}</li>
+    </ul>
+
+
+    <h3>Debounced Input</h3>
+    <input type="text" placeholder="Type something" (input)="onInputDebounced($event)">           
+    <p>Immediate: {{ immediate }}</p>
+    <p>Debounced (400ms): {{ debounced }}</p>
+
+
+    <h3>Conditional Rendering</h3>
+    <button (click)="showSignal.set(!showSignal())">Toggle</button>
+    @if (showSignal()) { <p>Now you see me!</p> } @else { <p>Now I'm hidden.</p> }
+
+    <h3>Lists</h3>
+    <ul>
+      @for (item of items5(); let i = $index; track item) {
+        <li>{{ i + 1 }}. {{ item }}</li>
+      } @empty {
+        <li>No items</li>
+      }
+    </ul>
+    <button (click)="addList()">Add Item</button>
+    <button (click)="clearList()">Clear</button>
+    <button (click)="resetList()">Reset</button>
+    <button (click)="shuffle()">Shuffle</button>
+
+
+     <h3>Filter & Sort</h3>
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <label>Search: <input #q (input)="query.set(q.value)" placeholder="Type to filter..." /></label>
+      <button (click)="setSort('name')">Sort by Name</button>
+      <button (click)="setSort('price')">Sort by Price</button>
+      <button (click)="toggleDir()">{{ sortDir() === 1 ? 'Asc' : 'Desc' }}</button>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;">
+    <thead>
+        <tr><th style="border:1px solid #ddd;padding:8px;background:#f7f7f7;">Name</th><th style="border:1px solid #ddd;padding:8px;background:#f7f7f7;width:140px;">Price</th></tr>
+      </thead>
+      <tbody>
+        @for (p of view(); track p.name) {
+          <tr>
+            <td style="border:1px solid #ddd;padding:8px;">{{ p.name }}</td>
+            <td style="border:1px solid #ddd;padding:8px;">{{ p.price | currency:'USD' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
